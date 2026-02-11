@@ -1,65 +1,65 @@
-name: Deploy to Cloudflare Pages
+# name: Deploy to Cloudflare Pages
 
-on:
-  push:
-    branches:
-      - main
-  repository_dispatch:
-    types:
-      - content-updated
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   repository_dispatch:
+#     types:
+#       - content-updated
+#   workflow_dispatch:
 
-concurrency:
-  group: deploy-cloudflare-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: deploy-cloudflare-${{ github.ref }}
+#   cancel-in-progress: true
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: lts/*
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.22.0
-          run_install: false
+#       - name: Setup pnpm
+#         uses: pnpm/action-setup@v4
+#         with:
+#           version: 10.22.0
+#           run_install: false
 
-      - name: Get pnpm store path
-        id: pnpm-store
-        run: echo "store_path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+#       - name: Get pnpm store path
+#         id: pnpm-store
+#         run: echo "store_path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-store.outputs.store_path }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+#       - name: Setup pnpm cache
+#         uses: actions/cache@v4
+#         with:
+#           path: ${{ steps.pnpm-store.outputs.store_path }}
+#           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+#           restore-keys: |
+#             ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+#       - name: Install dependencies
+#         run: pnpm install --frozen-lockfile
 
-      - name: Build site
-        run: pnpm build
-        env:
-          ENABLE_CONTENT_SYNC: true
-          CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}
-          USE_SUBMODULE: false
+#       - name: Build site
+#         run: pnpm build
+#         env:
+#           ENABLE_CONTENT_SYNC: true
+#           CONTENT_REPO_URL: ${{ secrets.CONTENT_REPO_URL }}
+#           USE_SUBMODULE: false
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: dist
+#       - name: Deploy to Cloudflare Pages
+#         uses: cloudflare/pages-action@v1
+#         with:
+#           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#           projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+#           directory: dist
