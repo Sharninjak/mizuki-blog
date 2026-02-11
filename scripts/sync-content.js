@@ -12,9 +12,10 @@ loadEnv();
 console.log("Loaded .env configuration file\n");
 
 // 从环境变量读取配置
-const ENABLE_CONTENT_SYNC = process.env.ENABLE_CONTENT_SYNC !== "false"; // 默认启用
+const ENABLE_CONTENT_SYNC = process.env.ENABLE_CONTENT_SYNC === "true";
 const CONTENT_REPO_URL = process.env.CONTENT_REPO_URL || "";
 const CONTENT_DIR = process.env.CONTENT_DIR || path.join(rootDir, "content");
+const USE_SUBMODULE = process.env.USE_SUBMODULE === "true";
 
 console.log("Starting content synchronization...\n");
 
@@ -30,43 +31,63 @@ if (!ENABLE_CONTENT_SYNC) {
 	process.exit(0);
 }
 
-// 检查内容目录是否存在
-if (!fs.existsSync(CONTENT_DIR)) {
-	console.log(`Content directory does not exist: ${CONTENT_DIR}`);
-	console.log("Using independent repository mode");
-
-	if (!CONTENT_REPO_URL) {
-		console.warn("Warning: CONTENT_REPO_URL not set, will use local content");
-		console.log(
-			"Tip: Please set CONTENT_REPO_URL environment variable or manually create content directory",
-		);
-		process.exit(0);
-	}
-
-	try {
-		console.log(`Cloning content repository: ${CONTENT_REPO_URL}`);
-		execSync(`git clone --depth 1 ${CONTENT_REPO_URL} ${CONTENT_DIR}`, {
-			stdio: "inherit",
-			cwd: rootDir,
-		});
-		console.log("Content repository cloned successfully");
-	} catch (error) {
-		console.error("Clone failed:", error.message);
-		process.exit(1);
+if (USE_SUBMODULE) {
+	if (!fs.existsSync(path.join(rootDir, ".gitmodules"))) {
+		console.warn("Warning: USE_SUBMODULE=true but .gitmodules not found");
+		console.warn("Tip: Add content repo as a submodule or set USE_SUBMODULE=false");
+	} else {
+		try {
+			console.log("Updating submodules...");
+			execSync("git submodule update --init --recursive", {
+				stdio: "inherit",
+				cwd: rootDir,
+			});
+			console.log("Submodule updated successfully");
+		} catch (error) {
+			console.warn("Submodule update failed:", error.message);
+		}
 	}
 } else {
-	console.log(`Content directory already exists: ${CONTENT_DIR}`);
+	// 检查内容目录是否存在
+	if (!fs.existsSync(CONTENT_DIR)) {
+		console.log(`Content directory does not exist: ${CONTENT_DIR}`);
+		console.log("Using independent repository mode");
 
-	if (fs.existsSync(path.join(CONTENT_DIR, ".git"))) {
+		if (!CONTENT_REPO_URL) {
+			console.warn("Warning: CONTENT_REPO_URL not set, will use local content");
+			console.log(
+				"Tip: Please set CONTENT_REPO_URL environment variable or manually create content directory",
+			);
+			process.exit(0);
+		}
+
 		try {
-			console.log("Pulling latest content...");
-			execSync("git pull --allow-unrelated-histories", {
-				stdio: "inherit",
-				cwd: CONTENT_DIR,
-			});
-			console.log("Content updated successfully");
+			console.log(`Cloning content repository: ${CONTENT_REPO_URL}`);
+			execSync(`git clone --depth 1 ${CONTENT_REPO_URL} ${CONTENT_DIR}`,
+				{
+					stdio: "inherit",
+					cwd: rootDir,
+				},
+			);
+			console.log("Content repository cloned successfully");
 		} catch (error) {
-			console.warn("Content update failed:", error.message);
+			console.error("Clone failed:", error.message);
+			process.exit(1);
+		}
+	} else {
+		console.log(`Content directory already exists: ${CONTENT_DIR}`);
+
+		if (fs.existsSync(path.join(CONTENT_DIR, ".git"))) {
+			try {
+				console.log("Pulling latest content...");
+				execSync("git pull --allow-unrelated-histories", {
+					stdio: "inherit",
+					cwd: CONTENT_DIR,
+				});
+				console.log("Content updated successfully");
+			} catch (error) {
+				console.warn("Content update failed:", error.message);
+			}
 		}
 	}
 }
