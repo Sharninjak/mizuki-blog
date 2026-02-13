@@ -2,17 +2,24 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_CN: Translation = {
-	[Key.home]: "主页",
-	[Key.about]: "关于我们",
-	[Key.archive]: "归档",
-	[Key.search]: "搜索",
-	[Key.other]: "其他",
-
 	// 导航栏标题
+	[Key.home]: "主页",
+	
+	[Key.archive]: "归档",
+	[Key.other]: "其他",
 	[Key.navLinks]: "链接",
 	[Key.navMy]: "我的",
 	[Key.navAbout]: "关于",
 	[Key.navOthers]: "其他",
+
+	[Key.search]: "搜索",
+
+	// 子导航标题
+	[Key.anime]: "追番",
+	[Key.diary]: "日记",
+	[Key.albums]: "相册",
+	[Key.me]: "我",
+	[Key.template]: "模板",
 
 	[Key.tags]: "标签",
 	[Key.categories]: "分类",
@@ -20,6 +27,8 @@ export const zh_CN: Translation = {
 	[Key.postList]: "文章列表",
 	[Key.tableOfContents]: "目录",
 	[Key.tocEmpty]: "当前页面没有目录",
+	[Key.about]: "关于",
+
 
 	// 公告栏
 	[Key.announcement]: "公告",
@@ -53,12 +62,12 @@ export const zh_CN: Translation = {
 	[Key.systemMode]: "跟随系统",
 
 	[Key.more]: "更多",
+	[Key.slink]: "页面关闭测试",
 
 	[Key.author]: "作者",
 	[Key.publishedAt]: "发布于",
 	[Key.license]: "许可协议",
-	[Key.anime]: "追番",
-	[Key.diary]: "日记",
+
 
 	// 番剧页面
 	[Key.animeTitle]: "我的追番记录",
@@ -91,8 +100,8 @@ export const zh_CN: Translation = {
 
 	// 404页面
 	[Key.notFound]: "404",
-	[Key.notFoundTitle]: "页面未找到",
-	[Key.notFoundDescription]: "抱歉，您访问的页面不存在或已被移动。",
+	[Key.notFoundTitle]: "页面溜走了",
+	[Key.notFoundDescription]: "您访问的页面不存在或已被移动。",
 	[Key.backToHome]: "返回首页",
 
 	// 音乐播放器
@@ -120,7 +129,6 @@ export const zh_CN: Translation = {
 	[Key.unknownArtist]: "未知艺术家",
 
 	// 相册页面
-	[Key.albums]: "相册",
 	[Key.albumsSubtitle]: "记录生活中的美好瞬间",
 	[Key.albumsEmpty]: "暂无内容",
 	[Key.albumsEmptyDesc]: "还没有创建任何相册，快去添加一些美好的回忆吧！",

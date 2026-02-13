@@ -1,0 +1,224 @@
+{
+  "totalFiles": 128,
+  "totalEdges": 366,
+  "cycleCount": 2,
+  "cycles": [
+    [
+      "src/i18n/languages/zh_TW.ts",
+      "src/i18n/languages/zh_CN.ts",
+      "src/i18n/languages/ja.ts",
+      "src/i18n/languages/en.ts",
+      "src/i18n/translation.ts"
+    ],
+    [
+      "src/utils/permalink-utils.ts",
+      "src/utils/url-utils.ts"
+    ]
+  ],
+  "topOut": [
+    {
+      "file": "src/layouts/Layout.astro",
+      "out": 18,
+      "in": 1
+    },
+    {
+      "file": "src/pages/posts/[...slug].astro",
+      "out": 16,
+      "in": 0
+    },
+    {
+      "file": "src/layouts/MainGridLayout.astro",
+      "out": 15,
+      "in": 17
+    },
+    {
+      "file": "src/pages/[permalink].astro",
+      "out": 15,
+      "in": 0
+    },
+    {
+      "file": "src/components/Navbar.astro",
+      "out": 12,
+      "in": 1
+    },
+    {
+      "file": "src/pages/skills.astro",
+      "out": 10,
+      "in": 0
+    },
+    {
+      "file": "src/components/layout/RightSideBar.astro",
+      "out": 9,
+      "in": 1
+    },
+    {
+      "file": "src/components/widget/SideBar.astro",
+      "out": 9,
+      "in": 1
+    },
+    {
+      "file": "src/pages/anime.astro",
+      "out": 8,
+      "in": 0
+    },
+    {
+      "file": "src/pages/friends.astro",
+      "out": 8,
+      "in": 0
+    },
+    {
+      "file": "src/pages/projects.astro",
+      "out": 8,
+      "in": 0
+    },
+    {
+      "file": "src/pages/timeline.astro",
+      "out": 8,
+      "in": 0
+    }
+  ],
+  "topIn": [
+    {
+      "file": "src/i18n/i18nKey.ts",
+      "in": 49,
+      "out": 0
+    },
+    {
+      "file": "src/i18n/translation.ts",
+      "in": 48,
+      "out": 6
+    },
+    {
+      "file": "src/config.ts",
+      "in": 41,
+      "out": 1
+    },
+    {
+      "file": "src/utils/url-utils.ts",
+      "in": 21,
+      "out": 4
+    },
+    {
+      "file": "src/layouts/MainGridLayout.astro",
+      "in": 17,
+      "out": 15
+    },
+    {
+      "file": "src/types/config.ts",
+      "in": 13,
+      "out": 1
+    },
+    {
+      "file": "src/scripts/right-sidebar-layout.js",
+      "in": 13,
+      "out": 0
+    },
+    {
+      "file": "src/utils/content-utils.ts",
+      "in": 12,
+      "out": 4
+    },
+    {
+      "file": "src/constants/constants.ts",
+      "in": 9,
+      "out": 0
+    },
+    {
+      "file": "src/utils/widget-manager.ts",
+      "in": 8,
+      "out": 2
+    },
+    {
+      "file": "src/utils/permalink-utils.ts",
+      "in": 7,
+      "out": 2
+    },
+    {
+      "file": "src/utils/date-utils.ts",
+      "in": 6,
+      "out": 1
+    }
+  ],
+  "topExternal": [
+    [
+      "astro-icon/components",
+      21
+    ],
+    [
+      "astro:content",
+      18
+    ],
+    [
+      "astro",
+      12
+    ],
+    [
+      "svelte",
+      10
+    ],
+    [
+      "@iconify/svelte",
+      7
+    ],
+    [
+      "../utils/panel-manager.js",
+      6
+    ],
+    [
+      "unist-util-visit",
+      6
+    ],
+    [
+      "node:path",
+      5
+    ],
+    [
+      "node:fs",
+      4
+    ],
+    [
+      "hastscript",
+      4
+    ],
+    [
+      "mdast",
+      4
+    ],
+    [
+      "astro:assets",
+      3
+    ],
+    [
+      "crypto-js",
+      2
+    ],
+    [
+      "markdown-it",
+      2
+    ],
+    [
+      "node-html-parser",
+      2
+    ],
+    [
+      "sanitize-html",
+      2
+    ],
+    [
+      "dayjs",
+      2
+    ],
+    [
+      "dayjs/plugin/utc",
+      2
+    ],
+    [
+      "src/config",
+      2
+    ],
+    [
+      "@astrojs/rss",
+      2
+    ]
+  ]
+}

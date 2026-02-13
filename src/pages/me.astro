@@ -1,0 +1,130 @@
+---
+import { siteConfig } from "../config";
+import { Icon } from "astro-icon/components";
+import {
+	getMe,
+	getMeContacts,
+	getMeHighlights,
+	getMeSkills,
+	getMeStats,
+	getMeProjects,
+} from "../data/me";
+import { getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+// 检查我的页面是否启用
+if (!siteConfig.featurePages.me) {
+	return Astro.redirect("/404/");
+}
+
+const mePost = await getEntry("spec", "me");
+const { Content } = await render(mePost as any);
+const title = i18n(I18nKey.me);
+const me = getMe();
+const stats = getMeStats();
+const highlights = getMeHighlights();
+const contacts = getMeContacts();
+const skills = getMeSkills();
+const projects = getMeProjects();
+---
+
+<MainGridLayout title={i18n(I18nKey.me)}>
+	<script>
+		import("../scripts/right-sidebar-layout.js");
+	</script>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-6 py-6 md:px-9 relative w-full">
+			<div class="flex flex-col items-start justify-center mb-8">
+				<h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
+					before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
+					before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+					{title}
+				</h1>
+				<!-- <p class="text-black/65 dark:text-white/65 mt-2">{me.title}</p>
+				<p class="text-black/55 dark:text-white/55 mt-1">{me.location}</p> -->
+			</div>
+
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+				<div class="rounded-xl bg-[var(--btn-regular-bg)] p-4 text-center">
+					<div class="text-2xl font-bold text-[var(--primary)]">{stats.highlightCount}</div>
+					<div class="text-sm text-black/60 dark:text-white/60">Highlights</div>
+				</div>
+				<div class="rounded-xl bg-[var(--btn-regular-bg)] p-4 text-center">
+					<div class="text-2xl font-bold text-[var(--primary)]">{stats.contactCount}</div>
+					<div class="text-sm text-black/60 dark:text-white/60">Contacts</div>
+				</div>
+				<div class="rounded-xl bg-[var(--btn-regular-bg)] p-4 text-center">
+					<div class="text-2xl font-bold text-[var(--primary)]">{stats.skillCategoryCount}</div>
+					<div class="text-sm text-black/60 dark:text-white/60">Skill Groups</div>
+				</div>
+				<div class="rounded-xl bg-[var(--btn-regular-bg)] p-4 text-center">
+					<div class="text-2xl font-bold text-[var(--primary)]">{stats.projectCount}</div>
+					<div class="text-sm text-black/60 dark:text-white/60">Projects</div>
+				</div>
+			</div>
+
+			<div class="grid lg:grid-cols-2 gap-4 mb-6">
+				<div class="rounded-xl border border-[var(--line-divider)] p-4">
+					<h2 class="text-xl font-semibold mb-3">Highlights</h2>
+					<ul class="space-y-2">
+						{highlights.map((item) => (
+							<li class="text-black/75 dark:text-white/75">• {item}</li>
+						))}
+					</ul>
+				</div>
+				<div class="rounded-xl border border-[var(--line-divider)] p-4">
+					<h2 class="text-xl font-semibold mb-3">Contacts</h2>
+					<div class="space-y-2">
+						{contacts.map((contact) => (
+							<a
+								href={contact.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex items-center gap-2 text-black/75 dark:text-white/75 hover:text-[var(--primary)] transition-colors"
+							>
+								<Icon name={contact.icon} class="text-[1.1rem]" />
+								<span>{contact.name}</span>
+							</a>
+						))}
+					</div>
+				</div>
+			</div>
+
+			<div class="rounded-xl border border-[var(--line-divider)] p-4 mb-6">
+				<h2 class="text-xl font-semibold mb-3">Skills</h2>
+				<div class="space-y-3">
+					{skills.map((group) => (
+						<div>
+							<div class="font-medium text-black/85 dark:text-white/85 mb-1">{group.category}</div>
+							<div class="flex flex-wrap gap-2">
+								{group.items.map((skill) => (
+									<span class="px-2 py-1 rounded-md bg-[var(--btn-regular-bg)] text-sm">{skill}</span>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<div class="rounded-xl border border-[var(--line-divider)] p-4 mb-6">
+				<h2 class="text-xl font-semibold mb-3">Projects</h2>
+				<div class="space-y-3">
+					{projects.map((item) => (
+						<div class="border-l-2 border-[var(--line-divider)] pl-3">
+							<div class="text-sm text-black/55 dark:text-white/55">{item.period}</div>
+							<div class="font-medium text-black/85 dark:text-white/85">{item.title}</div>
+							<div class="text-black/70 dark:text-white/70 text-sm">{item.description}</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<Markdown class="mt-2">
+				<Content />
+			</Markdown>
+		</div>
+	</div>
+</MainGridLayout>

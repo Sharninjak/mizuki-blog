@@ -1,6 +1,7 @@
 enum I18nKey {
 	home = "home",
 	about = "about",
+	me = "me",
 	archive = "archive",
 	search = "search",
 	other = "other",
@@ -10,6 +11,7 @@ enum I18nKey {
 	navMy = "navMy",
 	navAbout = "navAbout",
 	navOthers = "navOthers",
+	template = "template",
 
 	tags = "tags",
 	categories = "categories",
@@ -42,6 +44,7 @@ enum I18nKey {
 	systemMode = "systemMode",
 
 	more = "more",
+	slink = "slink",
 
 	author = "author",
 	publishedAt = "publishedAt",

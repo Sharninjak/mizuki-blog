@@ -4,6 +4,8 @@ import type { Translation } from "../translation";
 export const en: Translation = {
 	[Key.home]: "Home",
 	[Key.about]: "About",
+	[Key.template]: "Template",
+	[Key.me]: "Me",
 	[Key.archive]: "Archive",
 	[Key.search]: "Search",
 	[Key.other]: "Other",
@@ -53,6 +55,7 @@ export const en: Translation = {
 	[Key.systemMode]: "System",
 
 	[Key.more]: "More",
+	[Key.slink]: "Page Slinkd",
 
 	[Key.author]: "Author",
 	[Key.publishedAt]: "Published at",
