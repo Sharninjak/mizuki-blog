@@ -52,7 +52,7 @@ draft: false
 | `encrypted`   | Whether this post is need a password to view|
 | `password`    | The key to view the post|
 | `alias`       | The post will be accessible at `/posts/{alias}/`|
-| `permalink`   | Fixed link|
+| `permalink`   | Generate a permanent link relative to `posts` path. eg: `https://mizuki.site/posts/encrypted-example`|
 | `sourceLink`  | The source link or reference for the post content.|
 | `licenseName` | The license name for the post content.|
 
