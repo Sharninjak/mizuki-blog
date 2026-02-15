@@ -2,19 +2,27 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_TW: Translation = {
-	[Key.home]: "首頁",
-	[Key.about]: "關於",
-	[Key.template]: "模板",
-	[Key.me]: "我",
-	[Key.archive]: "歸檔",
-	[Key.search]: "搜尋",
-	[Key.other]: "其他",
-
+	// misc add
+	[Key.nothing]: "目前還沒有任何內容，敬請期待！",
 	// 導航欄標題
+	[Key.home]: "首頁",
+
+	[Key.archive]: "歸檔",
+	[Key.about]: "關於",
 	[Key.navLinks]: "連結",
 	[Key.navMy]: "我的",
 	[Key.navAbout]: "關於",
 	[Key.navOthers]: "其他",
+	[Key.search]: "搜尋",
+	[Key.other]: "其他",
+
+	// 子導航標題
+	[Key.anime]: "追番",
+	[Key.diary]: "日記",
+	[Key.albums]: "相冊",
+	[Key.me]: "我",
+	[Key.template]: "模板",
+	[Key.strategy]: "攻略",
 
 	[Key.tags]: "標籤",
 	[Key.categories]: "分類",
@@ -60,8 +68,7 @@ export const zh_TW: Translation = {
 	[Key.author]: "作者",
 	[Key.publishedAt]: "發布於",
 	[Key.license]: "許可協議",
-	[Key.anime]: "追番",
-	[Key.diary]: "日記",
+	
 
 	// 設備頁面
 	[Key.devices]: "我的設備",
@@ -128,7 +135,7 @@ export const zh_TW: Translation = {
 	[Key.unknownArtist]: "未知藝術家",
 
 	// 相冊頁面
-	[Key.albums]: "相冊",
+	
 	[Key.albumsSubtitle]: "記錄生活中的美好瞬間",
 	[Key.albumsEmpty]: "暫無內容",
 	[Key.albumsEmptyDesc]: "還沒有創建任何相冊，快去添加一些美好的回憶吧！",

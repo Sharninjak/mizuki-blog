@@ -61,14 +61,18 @@ export type SiteConfig = {
 	featurePages: {
 		anime: boolean; // 番剧页面开关
 		diary: boolean; // 日记页面开关
+		albums: boolean; // 相册页面开关
+		devices: boolean; // 设备页面开关
+		strategy: boolean; // 攻略页面开关
+
+		me: boolean; // 关于我页面开关
 		friends: boolean; // 友链页面开关
+
 		projects: boolean; // 项目页面开关
 		skills: boolean; // 技能页面开关
 		timeline: boolean; // 时间线页面开关
-		albums: boolean; // 相册页面开关
-		devices: boolean; // 设备页面开关
-		me: boolean; // 关于我页面开关
 		slink: boolean; // 页面关闭测试页面开关
+		updateLog: boolean; // 更新日志页面开关
 	};
 
 	// 文章列表布局配置

@@ -2,6 +2,8 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_CN: Translation = {
+	// misc add
+	[Key.nothing]: "目前还没有任何内容，敬请期待！",
 	// 导航栏标题
 	[Key.home]: "主页",
 	
@@ -20,6 +22,7 @@ export const zh_CN: Translation = {
 	[Key.albums]: "相册",
 	[Key.me]: "我",
 	[Key.template]: "模板",
+	[Key.strategy]: "攻略",
 
 	[Key.tags]: "标签",
 	[Key.categories]: "分类",

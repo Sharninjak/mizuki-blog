@@ -1,5 +1,8 @@
 ---
 import type { MarkdownHeading } from "astro";
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import WidgetLayout from "./WidgetLayout.astro";
 
 // import { siteConfig } from "../../config";
 
@@ -7,6 +10,7 @@ import type { MarkdownHeading } from "astro";
 
 interface Props {
 	class?: string;
+    style?: string;
 	headings: MarkdownHeading[];
 }
 
@@ -18,6 +22,7 @@ for (const heading of headings) {
 }
 
 const className = Astro.props.class;
+const style = Astro.props.style;
 // const isPostsRoute =
 // 	Astro.url.pathname.includes("/posts/") || headings.length > 0;
 
@@ -34,9 +39,17 @@ const className = Astro.props.class;
 
 // const maxLevel = siteConfig.toc.depth;
 ---
-<table-of-contents class:list={[className, "group"]} id="toc">
-    <!-- TOC内容将由JavaScript动态生成 -->
-</table-of-contents>
+<!-- 修改说明：使用 WidgetLayout 包裹 TOC，使外观与分类/标签组件一致（同款圆角卡片） -->
+<WidgetLayout
+    id="toc-widget"
+    name={i18n(I18nKey.tableOfContents)}
+    class={className}
+    style={style}
+>
+    <table-of-contents class="group" id="toc">
+        <!-- TOC内容将由JavaScript动态生成 -->
+    </table-of-contents>
+</WidgetLayout>
 
 <script>
 class TableOfContents extends HTMLElement {
@@ -50,6 +63,10 @@ class TableOfContents extends HTMLElement {
     tocEntries: HTMLAnchorElement[] = [];
     active: boolean[] = [];
     activeIndicator: HTMLElement | null = null;
+    pageViewHandler = () => {
+        // 修改说明：页面切换后延迟重建 TOC，确保从侧边栏点击文章时目录立即更新
+        setTimeout(() => this.init(), 140);
+    };
 
     constructor() {
         super();
@@ -224,9 +241,29 @@ class TableOfContents extends HTMLElement {
             tryInit();
             setTimeout(tryInit, 300);
         }
+
+        document.addEventListener("swup:page:view", this.pageViewHandler);
+        document.addEventListener("swup:contentReplaced", this.pageViewHandler);
+        document.addEventListener("astro:page-load", this.pageViewHandler);
     };
 
+    reset() {
+        this.sections.forEach((section) => this.observer.unobserve(section));
+        this.observer.disconnect();
+        this.tocEl?.removeEventListener("click", this.handleAnchorClick);
+
+        this.headingIdxMap.clear();
+        this.headings = [];
+        this.sections = [];
+        this.tocEntries = [];
+        this.active = [];
+        this.anchorNavTarget = null;
+        this.activeIndicator = null;
+    }
+
     init() {
+        this.reset();
+
         // 重新生成TOC内容
         this.regenerateTOC();
 
@@ -343,7 +380,7 @@ class TableOfContents extends HTMLElement {
                     <div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ${depthClass} ${heading.depth === minDepth ? 'bg-[var(--toc-badge-bg)] text-[var(--btn-content)]' : ''}">
                         ${badgeContent}
                     </div>
-                    <div class="transition text-sm ${heading.depth <= minDepth + 1 ? 'text-50' : 'text-30'}">${heading.text}</div>
+                    <div class="transition text-sm ${heading.depth <= minDepth + 1 ? 'text-75' : 'text-50'}">${heading.text}</div>
                 </a>`;
             }).join('');
         this.innerHTML = tocHTML + '<div id="active-indicator" style="opacity: 0" class="-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"></div>';
@@ -351,11 +388,10 @@ class TableOfContents extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.sections.forEach((section) =>
-            this.observer.unobserve(section)
-        );
-        this.observer.disconnect();
-        this.tocEl?.removeEventListener("click", this.handleAnchorClick);
+        this.reset();
+        document.removeEventListener("swup:page:view", this.pageViewHandler);
+        document.removeEventListener("swup:contentReplaced", this.pageViewHandler);
+        document.removeEventListener("astro:page-load", this.pageViewHandler);
     };
 }
 
@@ -365,15 +401,28 @@ if (!customElements.get("table-of-contents")) {
 </script>
 
 <style>
-  table-of-contents#toc {
-      max-height: 100%;
-      overflow: auto;
-      position: relative;
-      scroll-behavior: smooth;
-      display: block;
-  }
+    table-of-contents#toc {
+      /* 目录滚动区域：标题过多时可滚动查看 */
+        max-height: min(62vh, calc(100vh - 14rem));
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+        scroll-behavior: smooth;
+        display: block;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line-color) transparent;
+    }
 
-  table-of-contents#toc::-webkit-scrollbar {
-      display: none;
-  }
+    table-of-contents#toc::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    table-of-contents#toc::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    table-of-contents#toc::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--line-color) 80%, transparent);
+        border-radius: 999px;
+    }
 </style>

@@ -42,12 +42,16 @@ export const siteConfig: SiteConfig = {
 		diary: true, // 日记页面开关
 		albums: true, // 相册页面开关
 		devices: false, // 设备页面开关
-		friends: true, // 友链页面开关
+		strategy: true, // 攻略页面开关
+
 		me: true, // 关于我页面开关
-		slink: false, // 页面关闭测试页面开关
+		friends: true, // 友链页面开关
+
 		projects: false, // 项目页面开关
 		skills: false, // 技能页面开关
 		timeline: false, // 时间线页面开关
+		slink: false, // 页面关闭测试页面开关
+		updateLog: false, // 更新日志页面开关
 	},
 
 	// 顶栏标题配置
@@ -207,7 +211,7 @@ export const siteConfig: SiteConfig = {
 	toc: {
 		enable: true, // 启用目录功能
 		mode: "sidebar", // 目录显示模式："float" 悬浮按钮模式，"sidebar" 侧边栏模式
-		depth: 2, // 目录深度，1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
+		depth: 3, // 目录深度，1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
 		useJapaneseBadge: true, // 使用日语假名标记（あいうえお...）代替数字，开启后会将 1、2、3... 改为 あ、い、う...
 	},
 	showCoverInContent: true, // 在文章内容页显示文章封面
@@ -243,6 +247,7 @@ export const siteConfig: SiteConfig = {
 	},
 	showLastModified: true, // 控制“上次编辑”卡片显示的开关
 };
+
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	src: {
 		desktop: [
@@ -345,6 +350,11 @@ export const navBarConfig: NavBarConfig = {
 				// 	icon: "material-symbols:devices",
 				// 	external: false,
 				// },
+				{
+					name: "Strategy",
+					url: "/strategy/",
+					icon: "material-symbols:chess-rook-rounded",
+				}
 			],
 		},
 		{
@@ -394,6 +404,11 @@ export const navBarConfig: NavBarConfig = {
 				// 	url: "/timeline/",
 				// 	icon: "material-symbols:timeline",
 				// },
+				{
+					name: "Update Log",
+					url: "/update-log/",
+					icon: "material-symbols:update",
+				}
 			],
 		},
 	],
@@ -494,11 +509,24 @@ export const announcementConfig: AnnouncementConfig = {
 	closable: true, // 允许用户关闭公告
 	link: {
 		enable: true, // 启用链接
-		text: "Learn More", // 链接文本
+		text: "Learn More About Me", // 链接文本
 		url: "/me/", // 链接 URL
 		external: false, // 内部链接
 	},
 };
+
+// 公告示例
+// export const announcementConfig: AnnouncementConfig = {
+//     title: "限时活动",
+//     content: "本站正在进行技术分享活动，欢迎投稿参与！",
+//     closable: false, // 重要公告，不允许关闭
+//     link: {
+//         enable: true,
+//         text: "参与活动",
+//         url: "https://example.com/activity",
+//         external: true, // 外部链接，在新标签页打开
+//     },
+// };
 
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: false, // 启用音乐播放器功能
@@ -547,21 +575,6 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 50,
 		},
 		{
-			// 组件类型：分类组件
-			type: "categories",
-			// 组件位置："sticky" 表示粘性定位，可滚动
-			position: "sticky",
-			// CSS 类名
-			class: "onload-animation",
-			// 动画延迟时间
-			animationDelay: 150,
-			// 响应式配置
-			responsive: {
-				// 折叠阈值：当分类数量超过5个时自动折叠
-				collapseThreshold: 5,
-			},
-		},
-		{
 			// 组件类型：标签组件
 			type: "tags",
 			// 组件位置："sticky" 表示粘性定位
@@ -574,6 +587,21 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			responsive: {
 				// 折叠阈值：当标签数量超过20个时自动折叠
 				collapseThreshold: 20,
+			},
+		},
+		{
+			// 组件类型：分类组件
+			type: "categories",
+			// 组件位置："sticky" 表示粘性定位，可滚动
+			position: "sticky",
+			// CSS 类名
+			class: "onload-animation",
+			// 动画延迟时间
+			animationDelay: 150,
+			// 响应式配置
+			responsive: {
+				// 折叠阈值：当分类数量超过5个时自动折叠
+				collapseThreshold: 5,
 			},
 		},
 		{
@@ -596,11 +624,21 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 动画延迟时间
 			animationDelay: 250,
 		},
+		{
+			// 组件类型：目录组件
+			type: "toc",
+			// 组件位置：粘性区域，跟随滚动
+			position: "sticky",
+			// CSS 类名
+			class: "onload-animation",
+			// 动画延迟时间
+			animationDelay: 300,
+		},
 	],
 
 	// 侧栏组件布局配置
 	components: {
-		left: ["profile", "announcement", "categories", "tags"],
+		left: ["profile", "announcement", "categories", "tags", "toc"],
 		right: ["site-stats", "calendar"],
 		drawer: ["profile", "announcement", "categories", "tags"],
 	},

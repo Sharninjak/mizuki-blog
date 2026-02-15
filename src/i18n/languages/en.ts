@@ -2,6 +2,9 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const en: Translation = {
+	// misc add
+	[Key.nothing]: "No content yet, stay tuned!",
+	// Navigation bar titles
 	[Key.home]: "Home",
 	[Key.about]: "About",
 	[Key.template]: "Template",
@@ -10,7 +13,6 @@ export const en: Translation = {
 	[Key.search]: "Search",
 	[Key.other]: "Other",
 
-	// Navigation bar titles
 	[Key.navLinks]: "Links",
 	[Key.navMy]: "My",
 	[Key.navAbout]: "About",
@@ -22,6 +24,8 @@ export const en: Translation = {
 	[Key.postList]: "Post List",
 	[Key.tableOfContents]: "Table of Contents",
 	[Key.tocEmpty]: "No table of contents",
+
+	[Key.strategy]: "Strategy",
 
 	// Announcement
 	[Key.announcement]: "Announcement",

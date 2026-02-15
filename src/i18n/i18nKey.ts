@@ -1,17 +1,21 @@
 enum I18nKey {
-	home = "home",
-	about = "about",
-	me = "me",
-	archive = "archive",
-	search = "search",
-	other = "other",
-
+	// 通用
+	nothing = "nothing",
 	// 导航栏标题
+	home = "home",
+	archive = "archive",
 	navLinks = "navLinks",
+	me = "me",
+	about = "about",
+	other = "other",
+	search = "search",
+
+	// 子导航栏标题
 	navMy = "navMy",
 	navAbout = "navAbout",
 	navOthers = "navOthers",
 	template = "template",
+	strategy = "strategy",
 
 	tags = "tags",
 	categories = "categories",

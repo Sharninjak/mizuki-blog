@@ -2,6 +2,9 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const ja: Translation = {
+	// misc add
+	[Key.nothing]: "現在はまだコンテンツがありません。ご期待ください！",
+	// ナビゲーションバータイトル
 	[Key.home]: "ホーム",
 	[Key.about]: "このブログについて",
 	[Key.template]: "テンプレート",
@@ -10,7 +13,7 @@ export const ja: Translation = {
 	[Key.search]: "検索",
 	[Key.other]: "その他",
 
-	// ナビゲーションバータイトル
+	
 	[Key.navLinks]: "リンク",
 	[Key.navMy]: "私の",
 	[Key.navAbout]: "情報",
@@ -22,6 +25,8 @@ export const ja: Translation = {
 	[Key.postList]: "投稿の一覧",
 	[Key.tableOfContents]: "目次",
 	[Key.tocEmpty]: "目次はありません",
+
+	[Key.strategy]: "攻略",
 
 	// お知らせ
 	[Key.announcement]: "お知らせ",

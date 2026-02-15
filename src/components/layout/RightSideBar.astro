@@ -78,7 +78,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
     stickyComponents.length > 0 && (
       <div
         id="right-sidebar-sticky"
-        class="transition-all duration-700 flex flex-col w-full gap-4 sticky top-4"
+        class="transition-all duration-700 flex flex-col w-full gap-4 lg:sticky lg:top-[6rem] lg:self-start"
       >
         {stickyComponents.map((component, index) => {
           const renderData = renderComponent(
@@ -98,6 +98,20 @@ function renderComponent(component: any, index: number, _components: any[]) {
 
 <!-- 响应式样式和JavaScript -->
 <style>
+  /* 修改说明：右侧栏 sticky 强化（解决右侧目录不跟随滚动的问题） */
+  /* 可调参数：想让目录更贴近顶部，调小 top；如改为 top: 5.5rem */
+  #right-sidebar-sticky {
+    top: 6rem;
+    align-self: start;
+    height: fit-content;
+  }
+
+  /* 可调参数：确保右侧栏容器按内容高度布局，避免 sticky 受拉伸影响 */
+  #right-sidebar {
+    align-self: start;
+    height: fit-content;
+  }
+
   /* 响应式断点样式 */
   @media (max-width: 768px) {
     #right-sidebar {
